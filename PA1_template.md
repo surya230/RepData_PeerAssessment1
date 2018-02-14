@@ -41,6 +41,7 @@ sum_steps_per_day <- aggregate( steps ~ dates, data, sum )
 avg_steps <- mean  ( sum_steps_per_day$steps )
 med_steps <- median( sum_steps_per_day$steps )
 
+#png( "C5W2-Plot1.png", width = 900, height = 700, units = "px")
 par( mfrow = c(1,1))
 
 hist( sum_steps_per_day$steps, col = "red", xlab = "Daily Number of Steps Taken", ylab = "Count", 
@@ -50,6 +51,10 @@ title( main = paste("Average  = ", sprintf('%8.2f', avg_steps),
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
+```r
+#dev.off()
+```
 
 ## What is the average daily activity pattern?
 The maximum daily step count and its interval are recorded in the title of the following time-series plot.
@@ -66,6 +71,7 @@ med_steps_per_interval <- aggregate( steps ~ times, data, median )
 max_value <- max( avg_steps_per_interval$steps )
 max_inter <- avg_steps_per_interval$times[ which.max( avg_steps_per_interval$steps )]
 
+#png( "C5W2-Plot2.png", width = 900, height = 700, units = "px")
 par( mfrow = c(1,1))
 
 plot( avg_steps_per_interval$times, avg_steps_per_interval$steps, type='l', col = "blue", lwd = 1.5,
@@ -77,6 +83,10 @@ grid(nx = NULL, ny = NULL, col = "lightgray", lty = "dotted")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+```r
+#dev.off()
+```
 
 ## Imputing missing values
 Substituting the average step count per interval for any missing values results in an activity change only
@@ -107,6 +117,7 @@ sum_steps_per_dayI <- aggregate( steps ~ dates, data_imputed, sum )
 avg_stepsI <- mean  ( sum_steps_per_dayI$steps )
 med_stepsI <- median( sum_steps_per_dayI$steps )
 
+#png( "C5W2-Plot3.png", width = 900, height = 700, units = "px")
 par( mfrow = c(1,2))
 
 hist( sum_steps_per_day$steps, col = "red", xlab = "Daily Number of Steps Taken", ylab = "Count", 
@@ -121,6 +132,10 @@ title( main = paste("Average  = ", sprintf('%8.2f', avg_stepsI),
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+```r
+#dev.off()
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -138,6 +153,7 @@ colnames( w ) <- c("steps","dates","times", "DayType")
 
 avg_steps_per_interval_DayType <- aggregate( steps ~ times + DayType, w, mean )
 
+#png( "C5W2-Plot4.png", width = 900, height = 700, units = "px")
 par( mfrow = c(1,2))
 
 xyplot( avg_steps_per_interval_DayType$steps ~ avg_steps_per_interval_DayType$times | DayType, 
@@ -146,4 +162,8 @@ xyplot( avg_steps_per_interval_DayType$steps ~ avg_steps_per_interval_DayType$ti
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
+```r
+#dev.off()
+```
       
